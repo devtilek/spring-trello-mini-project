@@ -1,4 +1,4 @@
-# Trello Clone - Spring Boot Project
+# Trello - Spring Boot Project
 
 **Description:**  
 This is a simplified task management system inspired by Trello.  
