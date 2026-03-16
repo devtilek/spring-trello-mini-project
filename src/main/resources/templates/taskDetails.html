@@ -1,0 +1,40 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}"
+>
+
+<div class="mt-4" layout:fragment="arguments">
+    <div class="row">
+        <div class="container">
+            <form th:action="@{'/updateTask'}" method="post">
+                <input type="hidden" name="folder_id" th:value="${folder.getId()}">
+                <input type="hidden" name="task_id" th:value="${task.getId()}">
+
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input name="title" type="text" th:value="${task.getTitle()}" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" cols="30" rows="10" th:text="${task.getDescription()}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-control" th:value="${task.getStatus()}">
+                        <option th:each="status : ${statuses}"
+                                th:value="${status.getKey()}"
+                                th:text="${status.getValue()}"
+                                th:selected="${status.getKey() == task.getStatus()}"></option>
+                    </select>
+                </div>
+
+                <button class="btn btn-success">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

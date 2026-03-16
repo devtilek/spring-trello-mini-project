@@ -1,0 +1,48 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}"
+>
+
+<div class="mt-4" layout:fragment="arguments">
+
+    <style>
+        #alertBox {
+            display: none;
+        }
+
+        #toogleAlert:checked ~ #alertBox {
+            display: block;
+        }
+    </style>
+
+    <input type="checkbox" id="toogleAlert" hidden>
+
+    <label for="toogleAlert" class="btn btn-link" >+ New Folder</label>
+
+    <div id="alertBox" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <form th:action="@{'/addFolder'}" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Folder name</label>
+                <input name="folder_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">
+                    add
+                </button>
+            </div>
+        </form>
+        <label for="toggleAlert" class="btn-close" role="button" aria-label="Close"></label>
+    </div>
+
+    <div class="col-12 mb-1" th:if="${folders != null}" th:each="folder : ${folders}">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${folder.getName()}"></h5>
+                <a th:href="@{'/folder/' + ${folder.getId()}}" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

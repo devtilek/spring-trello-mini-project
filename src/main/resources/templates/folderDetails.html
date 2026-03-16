@@ -1,0 +1,107 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}"
+>
+
+<div class="mt-4" layout:fragment="arguments">
+
+    <div class="col-12 mb-1">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${folder.getName()}"></h5>
+                <form th:action="@{'/deleteCatFromFolder'}" th:each="cat : ${folder.getTaskCategoriesList()}" method="post">
+                    <input type="hidden" name="cat_id" th:value="${cat.getId()}">
+                    <input type="hidden" name="folder_id" th:value="${folder.getId()}">
+                    <button class="btn btn-danger" th:text="${cat.getName()} + ' x'"></button>
+                </form>
+
+                <style>
+                    #alertBox {
+                        display: none;
+                    }
+
+                    #toogleAlert:checked ~ #alertBox {
+                        display: block;
+                    }
+                </style>
+
+                <input type="checkbox" id="toogleAlert" hidden>
+
+                <label for="toogleAlert" class="btn btn-link">+ New Category</label>
+
+                <div id="alertBox" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    <form th:action="@{'/assignCategoryToFolder'}" th:each="cat : ${categories}" method="post">
+                        <div class="mb-3">
+                            <input type="hidden" name="cat_id" th:value="${cat.getId()}">
+                            <input type="hidden" name="folder_id" th:value="${folder.getId()}">
+                            <button class="btn btn-success" th:text="${cat.getName()} + ' +'">
+                            </button>
+                        </div>
+                    </form>
+                    <label for="toggleAlert" class="btn-close" role="button" aria-label="Close"></label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #alertBox1 {
+            display: none;
+        }
+
+        #toggleAlert1:checked ~ #alertBox1 {
+            display: block;
+        }
+    </style>
+
+    <input type="checkbox" id="toggleAlert1" hidden>
+
+    <label for="toggleAlert1" class="btn btn-link">+ New Task</label>
+
+    <div id="alertBox1" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <form th:action="@{'/addTask'}" method="post">
+            <input type="hidden" name="folder_id" th:value="${folder.getId()}">
+
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input name="title" type="text" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
+            </div>
+
+            <button class="btn btn-success">add</button>
+        </form>
+
+        <label for="toggleAlert1" class="btn-close" role="button"></label>
+    </div>
+
+    <table class="table table-striped" th:if="${tasks != null}">
+        <tr>
+            <th>ID</th>
+            <th>Task Name</th>
+            <th>Status</th>
+            <th>Details</th>
+        </tr>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.getId()}"></td>
+            <td th:text="${task.getDescription()}"></td>
+            <td>
+                <span th:if="${task.getStatus() == 0}" class="text-primary">TO DO</span>
+                <span th:if="${task.getStatus() == 1}" class="text-warning">IN TEST</span>
+                <span th:if="${task.getStatus() == 2}" class="text-success">DONE</span>
+                <span th:if="${task.getStatus() == 3}" class="text-danger">FAILED</span>
+            </td>
+            <td>
+                <a th:href="@{'/folder/' + ${folder.getId()} + '/' + ${task.getId()}}" class="btn btn-primary">View More</a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</html>
