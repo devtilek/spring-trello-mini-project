@@ -31,15 +31,4 @@ The application is built using Spring Boot and PostgreSQL, making it a full-stac
 - Lombok
 - Thymeleaf - layout dialect
 
----
-## Main Page
-![MainPage.png](MainPage.png)
 
-## Task Details Page 
-![TaskDetails.png](TaskDetails.png)
-
-![TaskPage.png](TaskPage.png)
-
-# ⚠️ FRONTEND
-
-**⚡ NOTE:** The frontend was **copied/used from a template** and integrated with the backend.  
