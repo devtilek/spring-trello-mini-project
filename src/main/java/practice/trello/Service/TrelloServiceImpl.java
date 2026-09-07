@@ -60,6 +60,10 @@ public class TrelloServiceImpl implements TrelloService {
     @Transactional
     public TaskDTO addTask(TaskDTO taskDTO) {
         Task task = taskMapper.toEntity(taskDTO);
+        if (taskDTO.getFolder() == null || taskDTO.getFolder().getId() == null) {
+            throw new ResourceNotFoundException("Folder is required for a task");
+        }
+        task.setFolder(findFolder(taskDTO.getFolder().getId()));
         return taskMapper.toDTO(taskRepo.save(task));
     }
 
@@ -72,6 +76,10 @@ public class TrelloServiceImpl implements TrelloService {
         Task existing = findTask(taskDTO.getId());
         Task updated = taskMapper.toEntity(taskDTO);
         updated.setId(existing.getId());
+        if (taskDTO.getFolder() == null || taskDTO.getFolder().getId() == null) {
+            throw new ResourceNotFoundException("Folder is required for a task");
+        }
+        updated.setFolder(findFolder(taskDTO.getFolder().getId()));
         return taskMapper.toDTO(taskRepo.save(updated));
     }
 
