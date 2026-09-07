@@ -1,34 +1,105 @@
-# Trello - Spring Boot Project
+# Trello — Spring Boot Task Management System
 
-**Description:**  
-This is a simplified task management system inspired by Trello.  
-It allows users to create folders, add categories, manage tasks, change task statuses, and add comments.  
-The application is built using Spring Boot and PostgreSQL, making it a full-stack backend project suitable for learning and showcasing Java development skills.
-
----
+A Trello-inspired task management application built with Java and Spring Boot. The project combines a server-side Thymeleaf UI with a REST API and PostgreSQL persistence.
 
 ## Features
 
-- **Category Management:** Create, update, and delete task categories.
-- **Folder Management:** Create, update, and delete folders.
-- **Task Management:** Create, update, and delete tasks (tasks must belong to a folder).
-- **Task Status:**
-    - `0` - TODO
-    - `1` - IN TEST
-    - `2` - DONE 
-    - `3` - FAILED 
-- **Comments:** Add and view comments on tasks.
-- **Rules:** Tasks with status DONE or FAILED are closed and cannot be edited or commented on.
+- Folder management
+- Task management with CRUD operations
+- Task categories and folder/category assignment
+- Task status workflow: `TODO`, `IN_TEST`, `DONE`, `FAILED`
+- Server-side UI with Thymeleaf
+- REST API under `/api/**`
+- DTO + MapStruct mapping
+- Request validation with Jakarta Validation
+- Centralized REST error handling
+- PostgreSQL persistence with Spring Data JPA
+- Actuator health endpoint
+- Environment-based database configuration
 
----
+## Architecture
 
-## Technologies Used
+```text
+src/main/java/practice/trello/
+├── Controller/       # MVC and REST controllers
+├── DTO/              # API/view data transfer objects
+├── Entity/           # JPA entities
+├── Exception/        # Application exceptions and global handlers
+├── Mapper/           # MapStruct mappers
+├── Repository/       # Spring Data repositories
+└── Service/          # Business logic
+```
+
+## REST API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/folders` | List folders |
+| GET | `/api/folders/{id}` | Get folder |
+| GET | `/api/folders/{id}/tasks` | List folder tasks |
+| POST | `/api/folders` | Create folder |
+| DELETE | `/api/folders/{id}` | Delete folder |
+| GET | `/api/tasks` | List tasks |
+| GET | `/api/tasks/{id}` | Get task |
+| POST | `/api/tasks` | Create task |
+| PUT | `/api/tasks/{id}` | Update task |
+| DELETE | `/api/tasks/{id}` | Delete task |
+| GET | `/api/categories` | List categories |
+| POST | `/api/categories` | Create category |
+| DELETE | `/api/categories/{id}` | Delete category |
+| POST | `/api/categories/{categoryId}/folders/{folderId}` | Assign category |
+| DELETE | `/api/categories/{categoryId}/folders/{folderId}` | Remove category |
+
+## Running locally
+
+### Requirements
+
+- JDK 25
+- PostgreSQL 15+
+- Gradle Wrapper
+
+### Database
+
+Create a PostgreSQL database named `Trello`, then configure:
+
+```text
+DB_URL=jdbc:postgresql://localhost:5432/Trello
+DB_USERNAME=postgres
+DB_PASSWORD=your-password
+```
+
+The application reads these values from environment variables. See `application-example.properties` for an example.
+
+### Start
+
+```bash
+./gradlew bootRun
+```
+
+Windows:
+
+```powershell
+./gradlew.bat bootRun
+```
+
+The web UI is available at `/` and the REST API at `/api/**`.
+
+Health check:
+
+```text
+/actuator/health
+```
+
+## Tech Stack
 
 - Java 25
-- Spring Boot
-- Spring Data JPA (Hibernate)
+- Spring Boot 4
+- Spring MVC
+- Spring Data JPA / Hibernate
 - PostgreSQL
+- Thymeleaf
+- MapStruct
 - Lombok
-- Thymeleaf - layout dialect
-
-
+- Jakarta Validation
+- Spring Boot Actuator
+- Gradle
