@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "task_categories", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,6 +18,6 @@ public class TaskCategories {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String name;
 }
