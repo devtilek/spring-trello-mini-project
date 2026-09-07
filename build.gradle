@@ -5,8 +5,8 @@ plugins {
 }
 
 group = 'practice'
-version = '0.0.1-SNAPSHOT'
-description = 'Trello'
+version = '1.0.0'
+description = 'Trello task management application'
 
 java {
     toolchain {
@@ -28,17 +28,22 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:4.0.0'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-thymeleaf-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:4.0.0")
-    implementation 'org.mapstruct:mapstruct:1.6.3'
-
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 }
 
 tasks.named('test') {
