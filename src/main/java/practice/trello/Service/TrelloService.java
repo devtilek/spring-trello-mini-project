@@ -11,14 +11,19 @@ public interface TrelloService {
     FolderDTO addFolder(FolderDTO folderDTO);
     List<FolderDTO> getAllFolders();
     FolderDTO getFolderById(Long id);
+    void deleteFolder(Long id);
+
     TaskDTO addTask(TaskDTO taskDTO);
+    TaskDTO updateTask(TaskDTO taskDTO);
     List<TaskDTO> getAllTasks();
-    List<TaskDTO> getAllTasksByFolderId(Long folder_id);
-    void deleteCategoryFromFolder(Long folderId, Long categoryId);
+    List<TaskDTO> getAllTasksByFolderId(Long folderId);
     TaskDTO getTaskById(Long id);
+    void deleteTask(Long id);
+
+    void deleteCategoryFromFolder(Long folderId, Long categoryId);
     TaskCategoryDTO addCat(TaskCategoryDTO taskCategoriesDTO);
     List<TaskCategoryDTO> getAllCategories();
-    void assignCategoryToFolder(Long folder_id, Long category_id);
+    void assignCategoryToFolder(Long folderId, Long categoryId);
     List<TaskCategoryDTO> toTaskCatsDTO(List<TaskCategories> taskCategoriesList);
-
+    void deleteCategory(Long id);
 }
