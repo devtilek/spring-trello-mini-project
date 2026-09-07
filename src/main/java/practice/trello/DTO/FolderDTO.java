@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import practice.trello.Entity.TaskCategories;
 
 import java.util.List;
 
@@ -17,5 +16,5 @@ public class FolderDTO {
     @Size(max = 100, message = "Folder name must not exceed 100 characters")
     private String name;
 
-    private List<TaskCategories> taskCategoriesList;
+    private List<TaskCategoryDTO> taskCategoriesList;
 }
