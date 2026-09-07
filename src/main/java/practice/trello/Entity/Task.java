@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "tasks")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,18 +16,18 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
-    @Column
+    @Column(nullable = false, length = 200)
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column
-    private int status;
+    @Column(nullable = false)
+    private int status = 0;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "folder_id", nullable = false)
     private Folder folder;
 }
